@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
+import { SidebarComponent } from './_shared/sidebar/sidebar.component';
+import { NavbarComponent } from './_shared/navbar/navbar.component';
+import { FooterComponent } from './_shared/footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClassroomComponent } from './classroom/classroom.component';
@@ -18,11 +18,12 @@ import { ExamComponent } from './exam/exam.component';
 import { FriendComponent } from './friend/friend.component';
 import { IncampusEventComponent } from './incampus-event/incampus-event.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    NgbModule
+    NgbModule,
   ],
   declarations: [
     FooterComponent,
@@ -39,12 +40,12 @@ import { IncampusEventComponent } from './incampus-event/incampus-event.componen
     AttendanceComponent,
     ExamComponent,
     FriendComponent,
-    IncampusEventComponent
+    IncampusEventComponent,
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
   ]
 })
 export class ComponentsModule { }

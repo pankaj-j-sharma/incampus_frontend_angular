@@ -18,7 +18,13 @@ import localeDe from '@angular/common/locales/en-IN';
 import localeDeExtra from '@angular/common/locales/extra/en-IN';
 import { LOCALE_ID, DEFAULT_CURRENCY_CODE } from '@angular/core';
 
+import {EventCalendarComponent} from './components/_shared/event-calendar/event-calendar.component';
+
 registerLocaleData(localeDe, 'en-IN', localeDeExtra);
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 
 
 @NgModule({
@@ -29,12 +35,17 @@ registerLocaleData(localeDe, 'en-IN', localeDeExtra);
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),    
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    EventCalendarComponent
   ],
   providers: [
     {

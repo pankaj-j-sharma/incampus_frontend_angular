@@ -17,6 +17,7 @@ import { AttendanceComponent } from 'src/app/components/attendance/attendance.co
 import { ExamComponent } from 'src/app/components/exam/exam.component';
 import { FriendComponent } from 'src/app/components/friend/friend.component';
 import { IncampusEventComponent } from 'src/app/components/incampus-event/incampus-event.component';
+import { EventCalendarComponent } from 'src/app/components/_shared/event-calendar/event-calendar.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -37,5 +38,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'exam',           component: ExamComponent },
     { path: 'friend',         component: FriendComponent },
     { path: 'incampus-event', component: IncampusEventComponent },
+    { path: 'calendar', component: EventCalendarComponent },
 
 ];
