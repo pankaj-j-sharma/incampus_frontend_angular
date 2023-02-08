@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import { DashboardData } from 'src/app/interfaces/dashboard-data';
+import { RestApiService } from 'src/services/rest-api/rest-api.service';
 
 // core components
 import {
@@ -8,21 +10,11 @@ import {
   colors
 } from "../../variables/charts";
 
-export interface DashboardStatistics {
-  Title : string
-  SpanText : string
-  Description1 : string
-  Description2 : string
-  DescriptionClass : string
-  IconDivClass : string
-  IconClass : string
-}
-
-
-export interface DashboardData {
-  DashboardStats : DashboardStatistics[]
-}
-
+import {
+  studentsRegChartOptionsData,
+  monthlyIncomeChartOptionsData,
+  dashboardData
+} from "../../variables/dashboard";
 
 @Component({
   selector: 'app-dashboard',
@@ -36,121 +28,14 @@ export class DashboardComponent implements OnInit {
   public monthlyIncomeChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
-  dashboardData : DashboardData = {
-    DashboardStats:[
-      {
-        Title : "Students",
-        SpanText : "34,569",
-        Description1 : "3.48",
-        Description2 : "Since last month",
-        DescriptionClass : "fa fa-arrow-up",
-        IconDivClass : "icon icon-shape bg-danger text-white rounded-circle shadow",      
-        IconClass : "fas fa-chart-bar"      
-      },
-      {
-        Title : "Teachers",
-        SpanText : "2,356",
-        Description1 : "3.48%",
-        Description2 : "Since last month",
-        DescriptionClass : "fas fa-arrow-down",
-        IconDivClass : "icon icon-shape bg-warning text-white rounded-circle shadow",      
-        IconClass : "fas fa-chart-pie"      
-      },
-      {
-        Title : "Income",
-        SpanText : "2,30,456 &#8377;",
-        Description1 : "1.10%",
-        Description2 : "Since last month",
-        DescriptionClass : "fas fa-arrow-down",
-        IconDivClass : "icon icon-shape bg-yellow text-white rounded-circle shadow",      
-        IconClass : "fas fa-users"      
-      },
-      {
-        Title : "Expenses",
-        SpanText : "1,79,900 &#8377;",
-        Description1 : "12%",
-        Description2 : "Since last month",
-        DescriptionClass : "fas fa-arrow-up",
-        IconDivClass : "icon icon-shape bg-info text-white rounded-circle shadow",      
-        IconClass : "fas fa-percent"      
-      },
-    ]
+  dashboardData = dashboardData;
+  processing=false;
 
-  }
-
-
-  monthlyIncomeChartOptionsData = {
-    options: {
-      scales: {
-        yAxes: [{
-          gridLines: {
-            color: colors.gray[900],
-            zeroLineColor: colors.gray[900],
-            drawOnChartArea: false
-          },
-          ticks: {
-            callback: function(value) {
-              if (!(value % 10)) {
-                return '₹' + value + 'k';
-              }
-            }
-          }
-        }]
-      }
-    },
-    data: {
-      labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-      datasets: [{
-        label: '',
-        data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
-      }]
-    }
-  }
-  
-  studentsRegChartOptionsData =  {
-    options: {
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              callback: function(value) {
-                if (!(value % 10)) {
-                  //return '$' + value + 'k'
-                  return value;
-                }
-              }
-            }
-          }
-        ]
-      },
-      tooltips: {
-        callbacks: {
-          label: function(item, data) {
-            var label = data.datasets[item.datasetIndex].label || "";
-            var yLabel = item.yLabel;
-            var content = "";
-            if (data.datasets.length > 1) {
-              content += label;
-            }
-            content += yLabel;
-            return content;
-          }
-        }
-      }
-    },
-    data: {
-      labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [
-        {
-          label: "Registration",
-          data: [25, 20, 30, 22, 17, 29],
-          maxBarThickness: 10
-        }
-      ]
-    }
-  }
+  constructor(private restAPIService : RestApiService) { }
 
   ngOnInit() {
+
+    this.loadDashboardData();
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -163,16 +48,16 @@ export class DashboardComponent implements OnInit {
 
     var studentsRegChart = new Chart(chartStudentsReg, {
       type: 'bar',
-      options: this.studentsRegChartOptionsData.options,
-      data: this.studentsRegChartOptionsData.data
+      options: studentsRegChartOptionsData.options,
+      data: studentsRegChartOptionsData.data
     });
 
     var chartMonthlyIncome = document.getElementById('chart-monthly-income');
 
     this.monthlyIncomeChart = new Chart(chartMonthlyIncome, {
 			type: 'line',
-			options: this.monthlyIncomeChartOptionsData.options,
-			data: this.monthlyIncomeChartOptionsData.data
+			options: monthlyIncomeChartOptionsData.options,
+			data: monthlyIncomeChartOptionsData.data
 		});
   }
 
@@ -180,6 +65,19 @@ export class DashboardComponent implements OnInit {
   public updateOptions() {
     this.monthlyIncomeChart.data.datasets[0].data = this.data;
     this.monthlyIncomeChart.update();
+  }
+
+  loadDashboardData(){
+    this.processing=true;
+    this.restAPIService.getDashboardData().subscribe(resp=>{
+      console.log("resp",resp);
+      if ('success' in resp){
+        let results = resp.results;
+        for (let i = 0; i < results.length; i++) {
+        }
+      }
+  });
+
   }
 
 }
