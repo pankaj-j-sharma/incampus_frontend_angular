@@ -44,4 +44,11 @@ export class SidebarComponent implements OnInit {
       this.isCollapsed = true;
    });
   }
+
+  logoutUser(){
+    localStorage.clear();
+    console.log("logout");
+    this.router.navigate(['login']);
+  }
+
 }

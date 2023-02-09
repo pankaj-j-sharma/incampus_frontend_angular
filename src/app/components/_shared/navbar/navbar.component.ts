@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { RestApiService } from 'src/services/rest-api/rest-api.service';
 
 export interface IncampusUser {
   FirstName : string
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit {
     FullName:"Incampus Admin",
     ProfilePic:"assets/img/theme/team-4-800x800.jpg"
   } ;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  constructor(location: Location,  private element: ElementRef, private router: Router, private restAPIService : RestApiService) {
     this.location = location;
   }
 
@@ -45,5 +46,11 @@ export class NavbarComponent implements OnInit {
     }
     return 'Dashboard';
   }
+
+  // logoutUser(){
+  //   this.restAPIService.clearLoginToken().subscribe(resp =>{
+  //     this.router.navigate(['/login?loggedout=true']);
+  //   });
+  // }
 
 }
