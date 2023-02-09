@@ -6,40 +6,40 @@ import {
 export const dashboardData : DashboardData = {
     DashboardStats:[
       {
-        Title : "Students",
-        SpanText : "34,569",
-        Description1 : "3.48",
-        Description2 : "Since last month",
-        DescriptionClass : "fa fa-arrow-up",
-        IconDivClass : "icon icon-shape bg-danger text-white rounded-circle shadow",      
-        IconClass : "fas fa-chart-bar"      
+        title : "Students",
+        span_text : "34,569",
+        description1 : "3.48",
+        description2 : "Since last month",
+        description_class : "fa fa-arrow-up",
+        icon_div_class : "icon icon-shape bg-danger text-white rounded-circle shadow",      
+        icon_class : "fas fa-chart-bar"      
       },
       {
-        Title : "Teachers",
-        SpanText : "2,356",
-        Description1 : "3.48%",
-        Description2 : "Since last month",
-        DescriptionClass : "fas fa-arrow-down",
-        IconDivClass : "icon icon-shape bg-warning text-white rounded-circle shadow",      
-        IconClass : "fas fa-chart-pie"      
+        title : "Teachers",
+        span_text : "2,356",
+        description1 : "3.48%",
+        description2 : "Since last month",
+        description_class : "fas fa-arrow-down",
+        icon_div_class : "icon icon-shape bg-warning text-white rounded-circle shadow",      
+        icon_class : "fas fa-chart-pie"      
       },
       {
-        Title : "Income",
-        SpanText : "2,30,456 &#8377;",
-        Description1 : "1.10%",
-        Description2 : "Since last month",
-        DescriptionClass : "fas fa-arrow-down",
-        IconDivClass : "icon icon-shape bg-yellow text-white rounded-circle shadow",      
-        IconClass : "fas fa-users"      
+        title : "Income",
+        span_text : "2,30,456 &#8377;",
+        description1 : "1.10%",
+        description2 : "Since last month",
+        description_class : "fas fa-arrow-down",
+        icon_div_class : "icon icon-shape bg-yellow text-white rounded-circle shadow",      
+        icon_class : "fas fa-users"      
       },
       {
-        Title : "Expenses",
-        SpanText : "1,79,900 &#8377;",
-        Description1 : "12%",
-        Description2 : "Since last month",
-        DescriptionClass : "fas fa-arrow-up",
-        IconDivClass : "icon icon-shape bg-info text-white rounded-circle shadow",      
-        IconClass : "fas fa-percent"      
+        title : "Expenses",
+        span_text : "1,79,900 &#8377;",
+        description1 : "12%",
+        description2 : "Since last month",
+        description_class : "fas fa-arrow-up",
+        icon_div_class : "icon icon-shape bg-info text-white rounded-circle shadow",      
+        icon_class : "fas fa-percent"      
       },
     ]
 

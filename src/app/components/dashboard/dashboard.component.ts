@@ -28,7 +28,9 @@ export class DashboardComponent implements OnInit {
   public monthlyIncomeChart;
   public clicked: boolean = true;
   public clicked1: boolean = false;
-  dashboardData = dashboardData;
+  dashboardData : DashboardData = {
+    DashboardStats:[]
+  };
   processing=false;
 
   constructor(private restAPIService : RestApiService) { }
@@ -70,12 +72,12 @@ export class DashboardComponent implements OnInit {
   loadDashboardData(){
     this.processing=true;
     this.restAPIService.getDashboardData().subscribe(resp=>{
-      console.log("resp",resp);
       if ('success' in resp){
         let results = resp.results;
-        for (let i = 0; i < results.length; i++) {
-        }
+        console.log("results",results);
+        this.dashboardData.DashboardStats = results.card_data;
       }
+      this.processing=false;
   });
 
   }

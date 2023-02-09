@@ -1,9 +1,9 @@
 export interface DashboardStatistics {
-    Title : string
-    SpanText : string
-    Description1 : string
-    Description2 : string
-    DescriptionClass : string
-    IconDivClass : string
-    IconClass : string
+    title : string
+    span_text : string
+    description1 : string
+    description2 : string
+    description_class : string
+    icon_div_class : string
+    icon_class : string
   }

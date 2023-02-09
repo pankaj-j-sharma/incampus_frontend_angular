@@ -1,3 +1,8 @@
+<!--loader start-->
+<div *ngIf="processing" class="loading">
+  <div class="gear"></div>
+</div>
+<!--loader end-->
 <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
@@ -8,18 +13,18 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">{{dashboard_stats.Title}}</h5>
-                  <span class="h2 font-weight-bold mb-0" [innerHTML]="dashboard_stats.SpanText"></span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">{{dashboard_stats.title}}</h5>
+                  <span class="h2 font-weight-bold mb-0" [innerHTML]="dashboard_stats.span_text | number"></span>
                 </div>
                 <div class="col-auto">
-                  <div [class]="dashboard_stats.IconDivClass">
-                    <i [class]="dashboard_stats.IconClass"></i>
+                  <div [class]="dashboard_stats.icon_div_class">
+                    <i [class]="dashboard_stats.icon_class"></i>
                   </div>
                 </div>
               </div>
               <p class="mt-3 mb-0 text-muted text-sm">
-                <span [ngClass]="dashboard_stats.DescriptionClass=='fas fa-arrow-down' ? 'text-danger mr-2' : 'text-success mr-2' "><i [class]="dashboard_stats.DescriptionClass"></i>{{dashboard_stats.Description1}}</span>
-                <span class="text-nowrap">{{dashboard_stats.Description2}}</span>
+                <span [ngClass]="dashboard_stats.description_class=='fas fa-arrow-down' ? 'text-danger mr-2' : 'text-success mr-2' "><i [class]="dashboard_stats.description_class"></i>{{dashboard_stats.description1}}</span>
+                <span class="text-nowrap">{{dashboard_stats.description2}}</span>
               </p>
             </div>
           </div>
