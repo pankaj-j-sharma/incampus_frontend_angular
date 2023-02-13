@@ -9,8 +9,7 @@ export class ApiInterceptorService implements HttpInterceptor {
 
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('intercepted ->',req.url);
-    console.log('data',req.body);
+    console.log('intercepted ->',req.url,' sent with data',req.body);
 
     /* Custom Interceptor code for testing purpose */
     // if (req.url.endsWith('/getmenuitem')){
@@ -19,6 +18,18 @@ export class ApiInterceptorService implements HttpInterceptor {
     //   return of(new HttpResponse({ status: 200, body: {results:navSideBarItemArr}}));
     // }
 
-    return next.handle(req);
+    // creating interceptor for automatically appending the token on all outgoing API requests
+    const idToken = localStorage.getItem("access");
+    if (idToken) {
+      const cloned = req.clone({
+          headers: req.headers.set("Authorization",
+              "Bearer " + idToken)
+      });
+      return next.handle(cloned);
+    }
+      else {
+        return next.handle(req);
+    }
+
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RestApiService } from 'src/services/rest-api/rest-api.service';
 
 @Component({
   selector: 'app-subject-route',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubjectRouteComponent implements OnInit {
 
-  constructor() { }
+  processing=false;
+
+  constructor(private restAPIService : RestApiService, private router: Router) { }
 
   ngOnInit(): void {
   }

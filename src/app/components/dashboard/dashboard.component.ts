@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import Chart from 'chart.js';
 import { DashboardData } from 'src/app/interfaces/dashboard-data';
 import { RestApiService } from 'src/services/rest-api/rest-api.service';
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit {
   };
   processing=false;
 
-  constructor(private restAPIService : RestApiService) { }
+  constructor(private restAPIService : RestApiService, private router: Router) { }
 
   ngOnInit() {
 
@@ -71,14 +72,29 @@ export class DashboardComponent implements OnInit {
 
   loadDashboardData(){
     this.processing=true;
-    this.restAPIService.getDashboardData().subscribe(resp=>{
-      if ('success' in resp){
-        let results = resp.results;
-        console.log("results",results);
-        this.dashboardData.DashboardStats = results.card_data;
-      }
-      this.processing=false;
-  });
+    this.restAPIService.getDashboardData().subscribe(
+    {
+      next: (resp) => {
+        console.log("getDashboardData resp",resp);
+        if ('success' in resp){
+          let results = resp.results;
+          console.log("results",results);
+          this.dashboardData.DashboardStats = results.card_data;
+        }
+        this.processing=false;
+      },
+      error: (err) => {
+        this._handleObserverError(err);
+      },
+      complete: () => console.info('complete')
+    });
+  }
+
+  private _handleObserverError(err:any){
+    console.error("err status",err.status);
+    if(err.status==401){
+      this.router.navigate(['/login'],{ queryParams: {loggedout: true,}});
+    }
 
   }
 

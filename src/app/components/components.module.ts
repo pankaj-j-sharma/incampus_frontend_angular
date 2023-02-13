@@ -17,6 +17,8 @@ import { AttendanceComponent } from './attendance/attendance.component';
 import { ExamComponent } from './exam/exam.component';
 import { FriendComponent } from './friend/friend.component';
 import { IncampusEventComponent } from './incampus-event/incampus-event.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -24,6 +26,10 @@ import { IncampusEventComponent } from './incampus-event/incampus-event.componen
     CommonModule,
     RouterModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+
   ],
   declarations: [
     FooterComponent,
