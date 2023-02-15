@@ -13,7 +13,7 @@ export class RestApiService {
   private userLoginUrl = this.BASE_URL+"api/token/";
   private loadUserProfileDataUrl = this.BASE_URL+"userprofile/profiledetails";
   private loadAllClassroomsDataUrl = this.BASE_URL+"grade/classroomlist";
-  private updateStudentInfoUrl = this.BASE_URL+"studentinfo";
+  private loadAllGradesDataUrl = this.BASE_URL+"grade/gradelist";
   private loadDashboardDataUrl = this.BASE_URL+"dashboard/loaddata";
 
   httpOptions = {
@@ -56,6 +56,10 @@ export class RestApiService {
 
   getAllClassrooms(){
     return this.http.get<any>(this.loadAllClassroomsDataUrl );        
+  } 
+
+  getAllGrades(){
+    return this.http.get<any>(this.loadAllGradesDataUrl );        
   } 
 
   updateUserProfile(postData:any){

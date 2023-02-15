@@ -134,3 +134,41 @@ div.loading {
 .hide{
     display: none !important;
 }
+
+// fix for modal popup issues on the page
+.modal-backdrop.show {
+    z-index: 1050 !important;
+}
+
+// modal css starts 
+
+div::-webkit-scrollbar {
+    width: .3em;
+}
+
+div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(133, 133, 133, 0.562);
+    box-shadow: inset 0 0 2px rgba(133, 133, 133, 0.562);
+}
+
+div::-webkit-scrollbar-thumb {
+    background-color: #31c2b3;
+    outline: 1px solid #eceded36;
+}
+
+.scrollable {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+i.ni-fat-remove{
+    font-size: x-large;
+    color: gray;
+}
+
+button.close-btn{
+    padding: 1px !important;
+    margin: 1px !important;
+}
+
+// modal css ends

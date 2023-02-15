@@ -19,6 +19,7 @@ import { FriendComponent } from './friend/friend.component';
 import { IncampusEventComponent } from './incampus-event/incampus-event.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { IncampusModalComponent } from './_shared/incampus-modal/incampus-modal.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ExamComponent,
     FriendComponent,
     IncampusEventComponent,
+    IncampusModalComponent
   ],
   exports: [
     FooterComponent,

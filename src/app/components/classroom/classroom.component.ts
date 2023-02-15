@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApiService } from 'src/services/rest-api/rest-api.service';
 import { ClassroomData } from 'src/app/interfaces/classroom-data';
+import { IncampusModalComponent } from '../_shared/incampus-modal/incampus-modal.component';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class ClassroomComponent implements OnInit {
   totalRecords:any;
   page:Number=1
 
-  constructor(private restAPIService : RestApiService, private router: Router) { }
+  constructor( private restAPIService : RestApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadAllClassrooms();
