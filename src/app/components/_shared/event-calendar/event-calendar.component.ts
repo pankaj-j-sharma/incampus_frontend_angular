@@ -4,6 +4,7 @@ import {
   ViewChild,
   TemplateRef,
   OnInit,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   startOfDay,
@@ -45,6 +46,7 @@ const colors: Record<string, EventColor> = {
   // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./event-calendar.component.css'],
   templateUrl: './event-calendar.component.html',
+  encapsulation: ViewEncapsulation.None
 })
 
 export class EventCalendarComponent implements OnInit{
@@ -55,6 +57,8 @@ export class EventCalendarComponent implements OnInit{
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
+  
+  processing=false;
 
   modalData: {
     action: string;

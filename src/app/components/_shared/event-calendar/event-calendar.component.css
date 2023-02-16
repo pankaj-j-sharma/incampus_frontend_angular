@@ -6,3 +6,40 @@ h3 {
     background-color: #f5f5f5;
     padding: 15px;
   }
+
+  .cal-month-view .cal-open-day-events {
+    color: black !important; 
+    background-color: transparent !important ;    
+  }  
+
+  .cal-month-view .cal-day-badge {
+    background-color: #2dce89 !important;
+    color: #fff;
+  }
+
+  .cal-month-view .cal-day-number {
+    font-size: 0.9em;
+  }
+
+  .cal-month-view .cal-event-title {
+    font-size: small;
+  }
+
+  .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .btn.btn-sm.bg-success.text-white.right-margin{
+    margin-right: 3px !important;
+    margin-left: 0px !important;
+  }
+
+  .btn.btn-sm.bg-success.text-white.add-event{
+    margin-right: 3px !important;
+    margin-left: 0px !important;
+  }
+
+  mwl-calendar-month-view-header{
+    font-size: small;
+  }
