@@ -10,10 +10,11 @@ import { RestApiService } from 'src/services/rest-api/rest-api.service';
 export class TimetableComponent implements OnInit {
 
   processing=false;
-
+ 
   constructor(private restAPIService : RestApiService, private router: Router) { }
 
   ngOnInit(): void {
   }
+
 
 }
