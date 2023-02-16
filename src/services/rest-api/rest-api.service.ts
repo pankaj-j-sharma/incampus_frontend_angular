@@ -14,6 +14,8 @@ export class RestApiService {
   private loadUserProfileDataUrl = this.BASE_URL+"userprofile/profiledetails";
   private loadAllClassroomsDataUrl = this.BASE_URL+"grade/classroomlist";
   private loadAllGradesDataUrl = this.BASE_URL+"grade/gradelist";
+  private loadAllGradesDdnDataUrl = this.BASE_URL+"grade/gradelistddn";
+  private loadGradeTimetableDataUrl = this.BASE_URL+"grade/dailyschedulelist";
   private loadAllSubjectsDataUrl = this.BASE_URL+"grade/subjectlist";
   private loadAllTeachersDataUrl = this.BASE_URL+"teacher/teacherlist";
   private loadAllSubjectRoutesDataUrl = this.BASE_URL+"grade/subjectroutinglist";
@@ -64,6 +66,14 @@ export class RestApiService {
   getAllGrades(){
     return this.http.get<any>(this.loadAllGradesDataUrl );        
   } 
+
+  getAllGradesDdn(){
+    return this.http.get<any>(this.loadAllGradesDdnDataUrl );        
+  }
+
+  getGradeTimetable(queryparams:string){
+    return this.http.get<any>(this.loadGradeTimetableDataUrl+"?"+queryparams );        
+  }
 
   getAllSubjects(){
     return this.http.get<any>(this.loadAllSubjectsDataUrl );        

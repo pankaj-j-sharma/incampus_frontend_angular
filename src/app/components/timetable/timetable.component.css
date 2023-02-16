@@ -1,0 +1,7 @@
+.p-timetable,.form-control{
+    font-size: 0.76rem;
+}
+
+select[name="grade"]{
+    width: 40%;
+}
