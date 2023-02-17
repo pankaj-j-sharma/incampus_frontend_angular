@@ -19,6 +19,9 @@ export class RestApiService {
   private loadAllSubjectsDataUrl = this.BASE_URL+"grade/subjectlist";
   private loadAllTeachersDataUrl = this.BASE_URL+"teacher/teacherlist";
   private loadAllSubjectRoutesDataUrl = this.BASE_URL+"grade/subjectroutinglist";
+  private loadAllStudentsDataUrl = this.BASE_URL+"student/studentlist";
+  private loadAllPaymentsDataUrl = this.BASE_URL+"payment/payment_list";
+  private loadStudentsPaymentsDataUrl = this.BASE_URL+"student/student_payment_list";
   private loadDashboardDataUrl = this.BASE_URL+"dashboard/loaddata";
 
   httpOptions = {
@@ -85,6 +88,18 @@ export class RestApiService {
 
   getAllSubjectRoutes(){
     return this.http.get<any>(this.loadAllSubjectRoutesDataUrl );        
+  } 
+
+  getAllStudents(){
+    return this.http.get<any>(this.loadAllStudentsDataUrl );        
+  } 
+
+  getStudentsPayments(){
+    return this.http.get<any>(this.loadStudentsPaymentsDataUrl );        
+  } 
+  
+  getAllPayments(){
+    return this.http.get<any>(this.loadAllPaymentsDataUrl );        
   } 
 
   updateUserProfile(postData:any){

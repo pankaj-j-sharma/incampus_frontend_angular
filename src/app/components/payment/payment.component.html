@@ -1,21 +1,170 @@
 <!--loader start-->
 <div *ngIf="processing" class="loading">
-    <div class="gear"></div>
+  <div class="gear"></div>
 </div>
-  <!--loader end-->
-  <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-      <div class="header-body">
-        <!-- Card stats -->
-        <div class="row">
 
-        </div>
+<!--loader end-->
+<div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+      <div class="row">      
       </div>
     </div>
   </div>
-  <div class="container-fluid mt--7">
-    <div class="row">    
-   
-    </div>
-  </div>
-  
+</div>
+<div class="container-fluid mt--7">   
+      <div class="row">
+          <div class="col padding-bottom">
+            <div class="card shadow">
+              <div class="card-header border-0">
+                <div class="row align-items-center">
+                  <div class="col-8">
+                    <h3 class="mb-0">Student Payments</h3>
+                  </div>
+                  <div class="col-4 text-right">
+                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="mymodal.launchModal()">Record Payment</button>
+                  </div>
+                </div>                          
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col" >#</th>
+                      <th scope="col" >Name</th>
+                      <th scope="col" >Month</th>
+                      <th scope="col" >Year</th>
+                      <th scope="col" >Status</th>
+                      <th scope="col">Amount Paid</th>
+                      <th scope="col">Payment Ref</th>
+                      <th scope="col">Created On</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let studentpaymentdata of studentPaymentDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalStudentPaymentRecords }">
+                      <td>
+                        {{studentpaymentdata.id}}
+                      </td>
+                      <th scope="row">
+                        <div class="media align-items-center">
+                          <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
+                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                          </a>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm">{{studentpaymentdata.name}}</span>
+                          </div>
+                        </div>
+                      </th>
+                      <td>
+                          {{studentpaymentdata.month | titlecase}}
+                      </td>
+                      <td>
+                          {{studentpaymentdata.year}}
+                      </td>
+                      <td>
+                          {{studentpaymentdata.status}}
+                      </td>
+                      <td>
+                        {{studentpaymentdata.amount_paid | currency}}
+                      </td>
+                      <td>
+                        {{studentpaymentdata.payment_ref}}
+                      </td>
+                      <td>
+                        {{studentpaymentdata.created}}
+                      </td>
+                      <td class="text-right">
+                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-glasses-2"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer py-4">
+                <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="allPaymentDataList.length>0" class="col">
+            <div class="card shadow">
+              <div class="card-header border-0">
+                <div class="row align-items-center">
+                  <div class="col-8">
+                    <h3 class="mb-0">All Payments</h3>
+                  </div>
+                  <div class="col-4 text-right">
+                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="mymodal.launchModal()">Add Payment</button>
+                  </div>
+                </div>                          
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col" >Refno</th>
+                      <th scope="col" >Mode</th>
+                      <th scope="col" >Txn Id</th>
+                      <th scope="col" >Amount</th>
+                      <th scope="col" >Status</th>
+                      <th scope="col">Reason</th>
+                      <th scope="col">Allocated</th>
+                      <th scope="col">Created On</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let allpaymentdata of allPaymentDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalAllPaymentRecords }">
+                      <td>
+                        {{allpaymentdata.refno}}
+                      </td>
+                      <th scope="row">
+                        <div class="media align-items-center">
+                          <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
+                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                          </a>
+                          <div class="media-body">
+                            <span class="mb-0 text-sm">{{allpaymentdata.mode}}</span>
+                          </div>
+                        </div>
+                      </th>
+                      <td>
+                          {{allpaymentdata.txn_id }}
+                      </td>
+                      <td>
+                          {{allpaymentdata.amount | currency}}
+                      </td>
+                      <td>
+                          {{allpaymentdata.status}}
+                      </td>
+                      <td>
+                        {{allpaymentdata.reason}}
+                      </td>
+                      <td>
+                          <i *ngIf="allpaymentdata.isallocated" class="ni ni-check-bold text-green"></i>
+                      </td>
+                      <td>
+                        {{allpaymentdata.created}}
+                      </td>
+                      <td class="text-right">
+                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-glasses-2"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer py-4">
+                <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+
+      </div>
+</div>
+
+<app-incampus-modal #mymodal modalId='addmyclassroom'>
+</app-incampus-modal>    

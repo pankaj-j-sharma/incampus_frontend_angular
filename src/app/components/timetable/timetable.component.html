@@ -56,9 +56,9 @@
                    <tbody>
                       <tr *ngFor="let schedule of all_schedule_times" id="i">
                          <th class="bg-gradient-success text-white">
-                            <span id="spanSTime_42" data-id="7.00">{{schedule.start_time}} AM</span><br>
+                            <span id="spanSTime_42" data-id="7.00">{{schedule.start_time}}</span><br>
                             <span id="spanSTime_42" class="text-center" data-id="7.00">to</span><br>
-                            <span id="spanETime_42" data-id="8.00">{{schedule.end_time}} AM</span>
+                            <span id="spanETime_42" data-id="8.00">{{schedule.end_time}}</span>
                          </th>
                          <td *ngFor="let timetable of getScheduleTimeTable(schedule.start_time)">
                             <span class="p-timetable">{{timetable.subject_name}}</span><br>
