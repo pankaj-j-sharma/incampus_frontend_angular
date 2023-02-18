@@ -13,7 +13,7 @@ export class PaymentComponent implements OnInit {
 
   processing=false;
   studentPaymentDataList : StudentPaymentData[];
-  allPaymentDataList : AllPaymentData[];
+  allPaymentDataList : AllPaymentData[] = [];
 
   totalStudentPaymentRecords:any;
   totalAllPaymentRecords:any;
