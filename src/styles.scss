@@ -140,6 +140,18 @@ div.loading {
     z-index: 1050 !important;
 }
 
+// padding for pages with multiple tables
+.padding-bottom{
+    margin-bottom: 20px;
+}
+
+// pagination button colour change
+.ngx-pagination .current {
+    background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%) !important;
+    border-radius: 3px;
+    color: #fefefe;
+}
+
 // modal css starts 
 
 div::-webkit-scrollbar {

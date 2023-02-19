@@ -24,6 +24,9 @@ export class RestApiService {
   private loadStudentsPaymentsDataUrl = this.BASE_URL+"student/student_payment_list";
   private loadAttendanceDataUrl = this.BASE_URL+"attendance/attendancelist";
   private loadAllDdnForAttendanceDataUrl = this.BASE_URL+"attendance/attendanceddnlist";
+  private loadAllExamsDataUrl = this.BASE_URL+"grade/examlist";
+  private loadExamSchedulesDataUrl = this.BASE_URL+"grade/examschedulelist";
+  private loadMyFriendsDataUrl = this.BASE_URL+"friends/friend_list";
   private loadDashboardDataUrl = this.BASE_URL+"dashboard/loaddata";
 
   httpOptions = {
@@ -110,6 +113,18 @@ export class RestApiService {
 
   getAllDdnForAttendance(){
     return this.http.get<any>(this.loadAllDdnForAttendanceDataUrl);
+  }
+
+  getAllExams(){
+    return this.http.get<any>(this.loadAllExamsDataUrl);
+  }
+
+  getExamSchedules(queryparams:string){
+    return this.http.get<any>(this.loadExamSchedulesDataUrl+"?"+queryparams );
+  } 
+
+  getMyFriends(){
+    return this.http.get<any>(this.loadMyFriendsDataUrl);
   }
 
   updateUserProfile(postData:any){

@@ -1,0 +1,5 @@
+.table tr.active {  
+    background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%) !important;
+    color: white;  
+    font-weight: bold;
+  }
