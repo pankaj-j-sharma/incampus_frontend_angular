@@ -22,6 +22,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/exam', title: 'Exam',  icon: 'ni-box-2 text-success', class: '' },
     { path: '/friend', title: 'Friend',  icon: 'ni-chat-round text-success', class: '' },
     { path: '/incampus-event', title: 'Event',  icon: 'ni-notification-70 text-success', class: '' },
+    { path: '/chat', title: 'Chat',  icon: 'ni-notification-70 text-success', class: '' },
     // { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' },
     // { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '' }
 ];

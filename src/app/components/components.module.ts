@@ -20,6 +20,7 @@ import { IncampusEventComponent } from './incampus-event/incampus-event.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IncampusModalComponent } from './_shared/incampus-modal/incampus-modal.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { IncampusModalComponent } from './_shared/incampus-modal/incampus-modal.
     ExamComponent,
     FriendComponent,
     IncampusEventComponent,
-    IncampusModalComponent
+    IncampusModalComponent,
+    ChatComponent
   ],
   exports: [
     FooterComponent,

@@ -4,7 +4,7 @@
 		<div class="card-header border-0">
 		  <div class="row align-items-center">
 			<div class="col-8">
-			  <h3 class="mb-0">New Classroom</h3>
+			  <h3 class="mb-0">{{modalId}}</h3>
 			</div>
 			<div class="col-4 text-right">
 			  <button type="button" class="btn btn-sm text-secondary" (click)="modal.dismiss('Cross click')"><i class="ni ni-fat-remove"></i></button>
@@ -15,15 +15,104 @@
 			<h4 class="modal-title">Modal title</h4>
 			<button type="button" class="btn btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 		</div> -->
-		<div class="modal-body">
-			<p *ngFor="let i of [1,2,3,4,5,6,7,8,9,1]">
-				Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-				Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-			</p>
+
+		<!-- Classroom Add Update Modal Form -->
+		<div *ngIf="(modalId == 'New Classroom' || modalId=='Update Classroom')">
+			<form #customModalForm="ngForm" [formGroup]="modalForm" role="form" (ngSubmit)="submitModalForm()">
+				<div class="modal-body">
+					<div>
+						<div class="pl-lg-4">
+						<div class="row">
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-username">Classroom Name</label>
+								<input type="text" id="input-classroom-name" class="form-control form-control-alternative" placeholder="Classroom Name" formControlName="name">
+							</div>
+							</div>
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-email">Location</label>
+								<input type="text" id="input-location" class="form-control form-control-alternative" placeholder="Classroom Location" formControlName="location">
+							</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-student-count">No. of Students</label>
+								<input type="text" id="input-student-count" class="form-control form-control-alternative" placeholder="0" formControlName="student_count">
+							</div>
+							</div>
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-last-name">Status</label>
+								<input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Active" formControlName="status">
+							</div>
+							</div>
+						</div>
+						</div>
+						<!-- <div class="row align-items-center">
+						<div class="col-8">
+						</div>    
+						<div class="col-4 text-right">
+							<button type="submit" class="btn btn-sm bg-gradient-success text-white">Save</button>
+						</div>
+						</div> -->
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+					<button type="submit" [disabled]="customModalForm.form.invalid" (click)="modal.close('Close click')" class="btn btn-sm bg-gradient-success text-white">Save</button>
+				</div>
+			</form>
 		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+
+		<!-- Grade Add/Update Modal Form -->
+		<div *ngIf="(modalId == 'New Grade' || modalId=='Update Grade')">
+			<form #customModalForm="ngForm" [formGroup]="modalForm" role="form" (ngSubmit)="submitModalForm()">
+				<div class="modal-body">
+					<div>
+						<div class="pl-lg-4">
+						<div class="row">
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-grade-name">Grade Name</label>
+								<input type="text" id="input-grade-name" class="form-control form-control-alternative" placeholder="Grade Name" formControlName="name">
+							</div>
+							</div>
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-admission-fees">Admission Fees</label>
+								<input type="text" id="input-admission-fees" class="form-control form-control-alternative" placeholder="0" formControlName="admission_fee">
+							</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-hall-charges">Hall Charges</label>
+								<input type="text" id="input-hall-charges" class="form-control form-control-alternative" placeholder="0" formControlName="hall_charges">
+							</div>
+							</div>
+						</div>
+						</div>
+						<!-- <div class="row align-items-center">
+						<div class="col-8">
+						</div>    
+						<div class="col-4 text-right">
+							<button type="submit" class="btn btn-sm bg-gradient-success text-white">Save</button>
+						</div>
+						</div> -->
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+					<button type="submit" [disabled]="customModalForm.form.invalid" (click)="modal.close('Close click')" class="btn btn-sm bg-gradient-success text-white">Save</button>
+				</div>
+			</form>
 		</div>
+		
+		
 	</div>
 </ng-template>
 

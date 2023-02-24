@@ -13,7 +13,11 @@ export class RestApiService {
   private userLoginUrl = this.BASE_URL+"api/token/";
   private loadUserProfileDataUrl = this.BASE_URL+"userprofile/profiledetails";
   private loadAllClassroomsDataUrl = this.BASE_URL+"grade/classroomlist";
+  private addNewClassroomDataUrl = this.BASE_URL+"grade/create_classroom";
+  private updateClassroomDataUrl = this.BASE_URL+"grade/classroom?id=";
   private loadAllGradesDataUrl = this.BASE_URL+"grade/gradelist";
+  private addNewGradeDataUrl = this.BASE_URL+"grade/create_grade";
+  private updateGradeDataUrl = this.BASE_URL+"grade/gradeinfo?id=";
   private loadAllGradesDdnDataUrl = this.BASE_URL+"grade/gradelistddn";
   private loadGradeTimetableDataUrl = this.BASE_URL+"grade/dailyschedulelist";
   private loadAllSubjectsDataUrl = this.BASE_URL+"grade/subjectlist";
@@ -71,9 +75,25 @@ export class RestApiService {
     return this.http.get<any>(this.loadAllClassroomsDataUrl );        
   } 
 
+  addNewClassroom(postData:any){
+    return this.http.post<any>(this.addNewClassroomDataUrl,postData );        
+  }
+
+  updateClassroom(id:number,putData:any){
+    return this.http.put<any>(this.updateClassroomDataUrl+id.toString(),putData );        
+  }
+
   getAllGrades(){
     return this.http.get<any>(this.loadAllGradesDataUrl );        
   } 
+
+  addNewGrade(postData:any){
+    return this.http.post<any>(this.addNewGradeDataUrl,postData );        
+  }
+
+  updateGrade(id:number,putData:any){
+    return this.http.put<any>(this.updateGradeDataUrl+id.toString(),putData );        
+  }
 
   getAllGradesDdn(){
     return this.http.get<any>(this.loadAllGradesDdnDataUrl );        

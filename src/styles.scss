@@ -184,3 +184,22 @@ button.close-btn{
 }
 
 // modal css ends
+
+.info-card
+{
+    border-bottom: 0.3px solid #ccc;
+    margin-bottom: 5px;
+    border-radius: 6px;
+}
+
+.info-card-first
+{
+    border-top: 0.3px solid #ccc;
+    border-radius: 6px;
+}
+
+// table row selection css 
+.table tr.active {  
+    background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%) !important;
+    color: white;  
+  }  

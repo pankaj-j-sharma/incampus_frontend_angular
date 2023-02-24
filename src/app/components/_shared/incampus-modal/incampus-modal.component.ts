@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input,Output, OnInit, SimpleChanges, TemplateRef, ViewChild, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -13,6 +14,8 @@ export class IncampusModalComponent implements OnInit {
   display = "none";
 
   @Input() modalId :string=""; 
+  @Input('formGroup') modalForm :any; 
+  @Output() onFormSubmit = new EventEmitter<any>();
   arrOfRows:number[]=[];
   numberOfCols:number=9;
 
@@ -21,9 +24,23 @@ export class IncampusModalComponent implements OnInit {
 
 	constructor(private modalService: NgbModal) {}
 
+  ngOnChanges(changes: SimpleChanges) {   
+    for (let propName in changes) {
+       // when your @Input value is changed  
+       if(propName === "formGroup"){
+           console.log(this.modalForm);
+       }
+    }
+ }
+
+ submitModalForm(){
+  console.log("submitModalForm");
+  this.onFormSubmit.emit(this.modalForm.value);
+ }
+
   launchModal(){
     this.openScrollableContent(this.longContent);
-    console.log("modalId passed",this.modalId);
+    console.log("modalId passed",this.modalId,this.modalForm);
   }
 
 	openScrollableContent(longContent) {
@@ -31,6 +48,7 @@ export class IncampusModalComponent implements OnInit {
       this.closeResult = `Closed with ${result}`;
     },(reason)=> {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      console.log("this.closeResult",this.closeResult);
     });
 	}
 
@@ -53,7 +71,7 @@ export class IncampusModalComponent implements OnInit {
 
   ngOnInit(): void {
     // this.openScrollableContent(this.longContent);
-
+    console.log("modal id",this.modalId);
   }
 
 

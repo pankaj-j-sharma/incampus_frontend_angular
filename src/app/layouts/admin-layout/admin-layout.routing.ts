@@ -18,6 +18,7 @@ import { ExamComponent } from 'src/app/components/exam/exam.component';
 import { FriendComponent } from 'src/app/components/friend/friend.component';
 import { IncampusEventComponent } from 'src/app/components/incampus-event/incampus-event.component';
 import { EventCalendarComponent } from 'src/app/components/_shared/event-calendar/event-calendar.component';
+import { ChatComponent } from 'src/app/components/chat/chat.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -39,5 +40,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'friend',         component: FriendComponent },
     { path: 'incampus-event', component: IncampusEventComponent },
     { path: 'calendar', component: EventCalendarComponent },
+    { path: 'chat', component: ChatComponent },
 
 ];

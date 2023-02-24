@@ -2,91 +2,148 @@
 <div *ngIf="processing" class="loading">
   <div class="gear"></div>
 </div>
-
 <!--loader end-->
 <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-      <div class="row">      
-      </div>
-    </div>
+     <div class="header-body">
+        <!-- Card stats -->
+        <div class="row">      
+        </div>
+     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">   
-      <div class="row">
-          <div class="col">
-            <div class="card shadow">
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <div class="col-8">
-                    <h3 class="mb-0">All Grades</h3>
-                  </div>
-                  <div class="col-4 text-right">
-                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="mymodal.launchModal()">Add Grade</button>
-                  </div>
-                </div>                          
+<div class="container-fluid mt--7">
+<div class="row">
+  <div class="col">
+     <div class="card shadow">
+        <div class="card-header border-0">
+           <div class="row align-items-center">
+              <div class="col-8">
+                 <h3 class="mb-0">All Grades</h3>
               </div>
-              <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col" >#</th>
-                      <th scope="col" >Name</th>
-                      <th scope="col" >Students</th>
-                      <th scope="col" >Admission Fee</th>
-                      <th scope="col" >Created On</th>
-                      <th scope="col" >Hall Charges</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let gradedata of gradeDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }">
-                      <td>
-                        {{gradedata.id}}
-                      </td>
-
-                      <th scope="row">
-                        <div class="media align-items-center">
+              <div class="col-4 text-right">
+                 <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="addmodal.launchModal()">Add Grade</button>
+              </div>
+           </div>
+        </div>
+        <div class="table-responsive">
+           <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                 <tr>
+                    <th scope="col" >#</th>
+                    <th scope="col" >Name</th>
+                    <th scope="col" >Students</th>
+                    <th scope="col" >Admission Fee</th>
+                    <th scope="col" >Created On</th>
+                    <th scope="col" >Hall Charges</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let gradedata of gradeDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }"  (click)="selectGrade(gradedata.id)" [class.active]="gradedata.id == selectedGrade" style="cursor: pointer;">
+                    <td>
+                       {{gradedata.id}}
+                    </td>
+                    <th scope="row">
+                       <div class="media align-items-center">
                           <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
-                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                          <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                           </a>
                           <div class="media-body">
-                            <span class="mb-0 text-sm">{{gradedata.name}}</span>
+                             <span class="mb-0 text-sm">{{gradedata.name}}</span>
                           </div>
-                        </div>
-                      </th>
-                      <td>
-                          {{gradedata.student_count}}
-                      </td>
-                      <td>
-                          {{gradedata.admission_fee | currency}}
-                      </td>
-                      <td>
-                          {{gradedata.created}}
-                      </td>
-                      <td>
-                          {{gradedata.hall_charges | currency}}
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-ruler-pencil"></i></button>
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-scissors"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                       </div>
+                    </th>
+                    <td>
+                       {{gradedata.student_count}}
+                    </td>
+                    <td>
+                       {{gradedata.admission_fee | currency}}
+                    </td>
+                    <td>
+                       {{gradedata.created}}
+                    </td>
+                    <td>
+                       {{gradedata.hall_charges | currency}}
+                    </td>
+                    <td class="text-right">
+                      <button [ngClass]="gradedata.id == selectedGrade ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'" (click)="updatemodal.launchModal()"><i class="ni ni-ruler-pencil"></i></button>
+                    </td>
+                    <td class="text-right">
+                      <button [ngClass]="gradedata.id == selectedGrade ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'"><i class="ni ni-scissors"></i></button>
+                    </td>
+                 </tr>
+              </tbody>
+           </table>
+        </div>
+        <div class="card-footer py-4">
+           <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
+           </pagination-controls>
+        </div>
+     </div>
+  </div>
+  <div class="col" *ngIf="selectedGrade!=-1">
+     <div class="card shadow">
+        <div class="card-header border-0  pb-0">
+           <div class="row align-items-center">
+              <div class="col-8 pb-0">
+                 <h3 class="p-2 ml-4 mb-0 pb-0">Grade - {{gradeData.name}}</h3>
               </div>
-              <div class="card-footer py-4">
-
-                  <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
-                  </pagination-controls>
+              <div class="col-4 text-right">
+                 <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="updatemodal.launchModal()">Edit</button>
               </div>
-            </div>
-          </div>
+           </div>
+        </div>
+        <div class="card-body">
+           <div class="d-flex justify-content-between info-card info-card-first">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Grade Name</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{gradeData.name}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Admission Fees</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{gradeData.admission_fee | currency }}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Hall Charges</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{gradeData.hall_charges | currency }}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm"># of Students</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{gradeData.student_count}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Created On</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{gradeData.created}}</p>
+              </div>
+           </div>
+        </div>
+        <div class="card-footer py-4" style="display:none">
+        </div>
+     </div>
+  </div>
 </div>
 
-<app-incampus-modal #mymodal modalId='addmyclassroom'>
-</app-incampus-modal>    
+<app-incampus-modal #addmodal modalId='New Grade' [formGroup]="gradeForm" (onFormSubmit)="addGrade($event)">
+</app-incampus-modal>
+<app-incampus-modal #updatemodal modalId='Update Grade' [formGroup]="gradeForm" (onFormSubmit)="updateGrade($event)">
+</app-incampus-modal>
