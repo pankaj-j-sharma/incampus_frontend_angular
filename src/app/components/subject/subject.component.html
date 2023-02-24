@@ -2,91 +2,145 @@
 <div *ngIf="processing" class="loading">
   <div class="gear"></div>
 </div>
-
 <!--loader end-->
 <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-      <div class="row">      
-      </div>
-    </div>
+     <div class="header-body">
+        <!-- Card stats -->
+        <div class="row">      
+        </div>
+     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">   
-      <div class="row">
-          <div class="col">
-            <div class="card shadow">
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <div class="col-8">
-                    <h3 class="mb-0">All Subjects</h3>
-                  </div>
-                  <div class="col-4 text-right">
-                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="mymodal.launchModal()">Add Subject</button>
-                  </div>
-                </div>                          
+<div class="container-fluid mt--7">
+<div class="row">
+  <div class="col padding-bottom">
+     <div class="card shadow">
+        <div class="card-header border-0">
+           <div class="row align-items-center">
+              <div class="col-8">
+                 <h3 class="mb-0">All Subjects</h3>
               </div>
-              <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col" >#</th>
-                      <th scope="col" >Name</th>
-                      <th scope="col" >Students</th>
-                      <th scope="col" >Grades</th>
-                      <th scope="col" >Created On</th>
-                      <th scope="col" >Is Mapped</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let subjectdata of subjectDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }">
-                      <td>
-                        {{subjectdata.id}}
-                      </td>
+              <div class="col-4 text-right">
+                 <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="addmodal.launchModal()">Add Subject</button>
+              </div>
+           </div>
+        </div>
+        <div class="table-responsive">
+           <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                 <tr>
+                    <th scope="col" >#</th>
+                    <th scope="col" >Name</th>
+                    <th scope="col" >Students</th>
+                    <th scope="col" >Grades</th>
+                    <th scope="col" >Created On</th>
+                    <th scope="col" >Is Mapped</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let subjectdata of subjectDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }"  (click)="selectSubject(subjectdata.id)" [class.active]="subjectdata.id == selectedSubject" style="cursor: pointer;">
+                 <td>
+                    {{subjectdata.id}}
+                 </td>
+                 <th scope="row">
+                    <div class="media align-items-center">
+                       <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
+                       <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                       </a>
+                       <div class="media-body">
+                          <span class="mb-0 text-sm">{{subjectdata.name}}</span>
+                       </div>
+                    </div>
+                 </th>
+                 <td>
+                    {{subjectdata.student_count}}
+                 </td>
+                 <td>
+                    {{subjectdata.grade_count}}
+                 </td>
+                 <td>
+                    {{subjectdata.created}}
+                 </td>
+                 <td>
+                    <i *ngIf="subjectdata.is_mapped" class="ni ni-check-bold text-green"></i>
+                 </td>
+                 <td class="text-right">
+                    <button [ngClass]="subjectdata.id == selectedSubject ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'" (click)="updatemodal.launchModal()"><i class="ni ni-ruler-pencil"></i></button>
+                 </td>
+                 <td class="text-right">
+                    <button [ngClass]="subjectdata.id == selectedSubject ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'"><i class="ni ni-scissors"></i></button>
+                 </td>
+                 </tr>
+              </tbody>
+           </table>
+        </div>
+        <div class="card-footer py-4">
+           <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
+           </pagination-controls>
+        </div>
+     </div>
+  </div>
+  <div class="col" *ngIf="selectedSubject!=-1">
+     <div class="card shadow">
+        <div class="card-header border-0  pb-0">
+           <div class="row align-items-center">
+              <div class="col-8 pb-0">
+                 <h3 class="p-2 ml-4 mb-0 pb-0">Subject - {{subjectData.name}}</h3>
+              </div>
+              <div class="col-4 text-right">
+                 <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="updatemodal.launchModal()">Edit</button>
+              </div>
+           </div>
+        </div>
+        <div class="card-body">
+           <div class="d-flex justify-content-between info-card info-card-first">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Subject Name</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectData.name}}</p>
+              </div>
+           </div>
 
-                      <th scope="row">
-                        <div class="media align-items-center">
-                          <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
-                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                          </a>
-                          <div class="media-body">
-                            <span class="mb-0 text-sm">{{subjectdata.name}}</span>
-                          </div>
-                        </div>
-                      </th>
-                      <td>
-                          {{subjectdata.student_count}}
-                      </td>
-                      <td>
-                          {{subjectdata.grade_count}}
-                      </td>
-                      <td>
-                          {{subjectdata.created}}
-                      </td>
-                      <td>
-                          <i *ngIf="subjectdata.is_mapped" class="ni ni-check-bold text-green"></i>
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-ruler-pencil"></i></button>
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-scissors"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+           <div class="d-flex justify-content-between info-card info-card-first">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm"># of Grades</p>
               </div>
-              <div class="card-footer py-4">
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectData.grade_count}}</p>
+              </div>
+           </div>
 
-                  <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
-                  </pagination-controls>
+           <div class="d-flex justify-content-between info-card info-card-first">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Teacher Allocated</p>
               </div>
-            </div>
-          </div>
+              <div class="p-2 mr-4">
+                 <p *ngIf= "subjectData.is_mapped" class="card-text text-sm">Yes</p>
+                 <p *ngIf= "!subjectData.is_mapped" class="card-text text-sm">No</p>
+              </div>
+           </div>
+
+           <div class="d-flex justify-content-between info-card info-card-first">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm"># of Students</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectData.student_count}}</p>
+              </div>
+           </div>
+           
+        </div>
+        <div class="card-footer py-4" style="display:none">
+        </div>
+     </div>
+  </div>
 </div>
 
-<app-incampus-modal #mymodal modalId='New Subject'>
-</app-incampus-modal>    
+<app-incampus-modal #addmodal modalId='New Subject' [formGroup]="subjectForm" (onFormSubmit)="addSubject($event)">
+</app-incampus-modal>
+<app-incampus-modal #updatemodal modalId='Update Subject' [formGroup]="subjectForm" (onFormSubmit)="updateSubject($event)">
+</app-incampus-modal>

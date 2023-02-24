@@ -111,6 +111,32 @@
 				</div>
 			</form>
 		</div>
+
+		
+		<!-- Subject Add/Update Modal Form -->
+		<div *ngIf="(modalId == 'New Subject' || modalId=='Update Subject')">
+			<form #customModalForm="ngForm" [formGroup]="modalForm" role="form" (ngSubmit)="submitModalForm()">
+				<div class="modal-body">
+					<div>
+						<div class="pl-lg-4">
+						<div class="row">
+							<div class="col-lg-6">
+							<div class="form-group">
+								<label class="form-control-label" for="input-subject-name">Subject Name</label>
+								<input type="text" id="input-subject-name" class="form-control form-control-alternative" placeholder="Subject Name" formControlName="name">
+							</div>
+							</div>
+						</div>
+						</div>
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+					<button type="submit" [disabled]="customModalForm.form.invalid" (click)="modal.close('Close click')" class="btn btn-sm bg-gradient-success text-white">Save</button>
+				</div>
+			</form>
+		</div>
+
 		
 		
 	</div>

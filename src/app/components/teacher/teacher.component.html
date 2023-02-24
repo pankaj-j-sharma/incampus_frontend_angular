@@ -2,95 +2,173 @@
 <div *ngIf="processing" class="loading">
   <div class="gear"></div>
 </div>
-
 <!--loader end-->
 <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-      <div class="row">      
-      </div>
-    </div>
+     <div class="header-body">
+        <!-- Card stats -->
+        <div class="row">      
+        </div>
+     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">   
-      <div class="row">
-          <div class="col">
-            <div class="card shadow">
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <div class="col-8">
-                    <h3 class="mb-0">All Teachers</h3>
-                  </div>
-                  <div class="col-4 text-right">
-                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="mymodal.launchModal()">Add Teacher</button>
-                  </div>
-                </div>                          
+<div class="container-fluid mt--7">
+<div class="row">
+  <div class="col">
+     <div class="card shadow">
+        <div class="card-header border-0">
+           <div class="row align-items-center">
+              <div class="col-8">
+                 <h3 class="mb-0">All Teachers</h3>
               </div>
-              <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col" >#</th>
-                      <th scope="col" >Name</th>
-                      <th scope="col" >Gender</th>
-                      <th scope="col" >Grades</th>
-                      <th scope="col" >Created On</th>
-                      <th scope="col" >Phone</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let teacherdata of teacherDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }">
-                      <td>
-                        {{teacherdata.id}}
-                      </td>
-
-                      <th scope="row">
-                        <div class="media align-items-center">
+              <div class="col-4 text-right">
+                 <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="addmodal.launchModal()">Add Teacher</button>
+              </div>
+           </div>
+        </div>
+        <div class="table-responsive">
+           <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                 <tr>
+                    <th scope="col" >#</th>
+                    <th scope="col" >Name</th>
+                    <th scope="col" >Gender</th>
+                    <th scope="col" >Grades</th>
+                    <th scope="col" >Created On</th>
+                    <th scope="col" >Phone</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let teacherdata of teacherDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }" (click)="selectTeacher(teacherdata.id)" [class.active]="teacherdata.id == selectedTeacher" style="cursor: pointer;">
+                    <td>
+                       {{teacherdata.id}}
+                    </td>
+                    <th scope="row">
+                       <div class="media align-items-center">
                           <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
-                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                          <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                           </a>
                           <div class="media-body">
-                            <span class="mb-0 text-sm">{{teacherdata.name}}</span>
+                             <span class="mb-0 text-sm">{{teacherdata.name}}</span>
                           </div>
-                        </div>
-                      </th>
-                      <td>
-                          {{teacherdata.gender | titlecase}}
-                      </td>
-                      <td>
-                          {{teacherdata.grade_count}}
-                      </td>
-                      <td>
-                          {{teacherdata.created}}
-                      </td>
-                      <td>
-                        {{teacherdata.phone_no}}
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-ruler-pencil"></i></button>
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-glasses-2"></i></button>
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-scissors"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                       </div>
+                    </th>
+                    <td>
+                       {{teacherdata.gender | titlecase}}
+                    </td>
+                    <td>
+                       {{teacherdata.grade_count}}
+                    </td>
+                    <td>
+                       {{teacherdata.created}}
+                    </td>
+                    <td>
+                       {{teacherdata.phone_no}}
+                    </td>
+                    <td class="text-right">
+                      <button [ngClass]="teacherdata.id == selectedTeacher ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'" (click)="updatemodal.launchModal()"><i class="ni ni-ruler-pencil"></i></button>
+                    </td>
+                    <td class="text-right">
+                      <button [ngClass]="teacherdata.id == selectedTeacher ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'"><i class="ni ni-scissors"></i></button>
+                    </td>
+                 </tr>
+              </tbody>
+           </table>
+        </div>
+        <div class="card-footer py-4">
+           <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
+           </pagination-controls>
+        </div>
+     </div>
+  </div>
+  <div class="col" *ngIf="selectedTeacher!=-1">
+     <div class="card shadow">
+        <div class="card-header border-0  pb-0">
+           <div class="row align-items-center">
+              <div class="col-8 pb-0">
+                 <h3 class="p-2 ml-4 mb-0 pb-0">Teacher - {{teacherData.first_name}}</h3>
               </div>
-              <div class="card-footer py-4">
-
-                  <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
-                  </pagination-controls>
+              <div class="col-4 text-right">
+                 <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="updatemodal.launchModal()">Edit</button>
               </div>
-            </div>
-          </div>
+           </div>
+        </div>
+        <div class="card-body">
+           <div class="d-flex justify-content-between info-card info-card-first">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Username</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.username}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">First Name</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.first_name}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Last Name</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.last_name}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Teacher Email</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.email}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Present Address</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.address}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Gender</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.gender}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Contact No.</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.phone_no}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card ">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm">Added By</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{teacherData.added_by}}</p>
+              </div>
+           </div>
+        </div>
+        <div class="card-footer py-4" style="display:none">
+        </div>
+     </div>
+  </div>
 </div>
 
-<app-incampus-modal #mymodal modalId='New Teacher'>
-</app-incampus-modal>    
+<app-incampus-modal #addmodal modalId='New Teacher' [formGroup]="teacherForm" (onFormSubmit)="addTeacher($event)">
+</app-incampus-modal>
+<app-incampus-modal #updatemodal modalId='Update Teacher' [formGroup]="teacherForm" (onFormSubmit)="updateTeacher($event)">
+</app-incampus-modal>

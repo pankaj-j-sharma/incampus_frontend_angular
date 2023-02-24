@@ -21,7 +21,12 @@ export class RestApiService {
   private loadAllGradesDdnDataUrl = this.BASE_URL+"grade/gradelistddn";
   private loadGradeTimetableDataUrl = this.BASE_URL+"grade/dailyschedulelist";
   private loadAllSubjectsDataUrl = this.BASE_URL+"grade/subjectlist";
+  private addNewSubjectDataUrl = this.BASE_URL+"grade/create_subject";
+  private updateSubjectDataUrl = this.BASE_URL+"grade/subjectinfo?id=";
   private loadAllTeachersDataUrl = this.BASE_URL+"teacher/teacherlist";
+  private loadTeacherbyIdDataUrl = this.BASE_URL+"teacher/teacher?id=";
+  private addNewTeacherDataUrl = this.BASE_URL+"teacher/create_teacher";
+  private updateTeacherDataUrl = this.BASE_URL+"teacher/teacher?id=";
   private loadAllSubjectRoutesDataUrl = this.BASE_URL+"grade/subjectroutinglist";
   private loadAllStudentsDataUrl = this.BASE_URL+"student/studentlist";
   private loadAllPaymentsDataUrl = this.BASE_URL+"payment/payment_list";
@@ -107,9 +112,29 @@ export class RestApiService {
     return this.http.get<any>(this.loadAllSubjectsDataUrl );        
   } 
 
+  addNewSubject(postData:any){
+    return this.http.post<any>(this.addNewSubjectDataUrl,postData );        
+  }
+
+  updateSubject(id:number,putData:any){
+    return this.http.put<any>(this.updateSubjectDataUrl+id.toString(),putData );        
+  }
+
   getAllTeachers(){
     return this.http.get<any>(this.loadAllTeachersDataUrl );        
   } 
+
+  getTeacherbyId(id:number){
+    return this.http.get<any>(this.loadTeacherbyIdDataUrl+id.toString() );  
+  }
+
+  addNewTeacher(postData:any){
+    return this.http.get<any>(this.addNewTeacherDataUrl );        
+  } 
+
+  updateTeacher(id:number,putData:any){
+    return this.http.put<any>(this.updateTeacherDataUrl+id.toString(),putData );        
+  }
 
   getAllSubjectRoutes(){
     return this.http.get<any>(this.loadAllSubjectRoutesDataUrl );        
