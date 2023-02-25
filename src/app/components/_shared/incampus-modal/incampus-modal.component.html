@@ -137,6 +137,76 @@
 			</form>
 		</div>
 
+
+		<!-- Teacher Add/Update Modal Form -->
+		<div *ngIf="(modalId == 'New Teacher' || modalId=='Update Teacher')">
+			<form #customModalForm="ngForm" [formGroup]="modalForm" role="form" (ngSubmit)="submitModalForm()">
+				<div class="modal-body">
+					<div>
+						<div class="pl-lg-4">
+							<div class="row">
+								<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label" for="input-first-name">First Name</label>
+									<input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First Name" formControlName="first_name">
+								</div>
+								</div>
+								<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label" for="input-last-name">Last Name</label>
+									<input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="0" formControlName="last_name">
+								</div>
+								</div>
+							</div>	
+							<div class="row">
+								<div class="col-lg-8">
+								<div class="form-group">
+									<label class="form-control-label" for="input-email">Email</label>
+									<input type="email" id="input-email" class="form-control form-control-alternative" placeholder="Email Address" formControlName="email">
+								</div>
+								</div>
+								<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label" for="input-gender">Gender</label>
+									<input type="text" id="input-gender" class="form-control form-control-alternative" placeholder="0" formControlName="gender">
+								</div>
+								</div>
+							</div>	
+
+							<div class="row">
+								<div class="col-lg-12">
+								<div class="form-group">
+									<label class="form-control-label" for="input-address">Address</label>
+									<input type="text" id="input-address" class="form-control form-control-alternative" placeholder="Address" formControlName="address">
+								</div>
+								</div>
+							</div>	
+
+							<div class="row">
+								<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label" for="input-email">Contact #</label>
+									<input type="text" id="input-phone-no" class="form-control form-control-alternative" placeholder="Phone No" formControlName="phone_no">
+								</div>
+								</div>
+								<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label" for="input-username">Username</label>
+									<input type="text" id="input-username" class="form-control form-control-alternative" placeholder="0" formControlName="username">
+								</div>
+								</div>
+							</div>	
+
+							
+						</div>
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+					<button type="submit" [disabled]="customModalForm.form.invalid" (click)="modal.close('Close click')" class="btn btn-sm bg-gradient-success text-white">Save</button>
+				</div>
+			</form>
+		</div>
 		
 		
 	</div>

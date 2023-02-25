@@ -129,7 +129,7 @@ export class RestApiService {
   }
 
   addNewTeacher(postData:any){
-    return this.http.get<any>(this.addNewTeacherDataUrl );        
+    return this.http.post<any>(this.addNewTeacherDataUrl,postData );        
   } 
 
   updateTeacher(id:number,putData:any){

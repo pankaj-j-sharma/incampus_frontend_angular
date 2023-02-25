@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApiService } from 'src/services/rest-api/rest-api.service';
 import { TeacherData,TeacherDetailsData } from 'src/app/interfaces/teacher-data';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup,FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class TeacherComponent implements OnInit {
     gender:"",
     incampus_type:"teacher",
     last_name:"",
-    password:"",
+    password:"12345",
     phone_no:"",
     username:""
   }
@@ -35,7 +35,7 @@ export class TeacherComponent implements OnInit {
   page:Number=1;
   teacherForm:FormGroup;
 
-  constructor( private restAPIService : RestApiService, private router: Router) { }
+  constructor( private restAPIService : RestApiService, private router: Router , public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -43,16 +43,15 @@ export class TeacherComponent implements OnInit {
   }
 
   createForm(){
-    this.teacherForm = new FormGroup({
-      username: new FormControl(this.teacherData.username,[Validators.required]),
-      first_name: new FormControl(this.teacherData.first_name,[Validators.required]),
-      last_name: new FormControl(this.teacherData.last_name,[Validators.required]),
-      email: new FormControl(this.teacherData.email,[Validators.required]),
-      incampus_type: new FormControl(this.teacherData.incampus_type,[Validators.required]),
-      address: new FormControl(this.teacherData.address,[Validators.required]),
-      gender: new FormControl(this.teacherData.gender,[Validators.required]),
-      phone_no: new FormControl(this.teacherData.phone_no,[Validators.required]),
-      password: new FormControl(this.teacherData.password,[Validators.required]),
+    this.teacherForm = this.fb.group({
+      username: this.fb.control(this.teacherData.username,[Validators.required]),
+      first_name: this.fb.control(this.teacherData.first_name,[Validators.required]),
+      last_name: this.fb.control(this.teacherData.last_name,[Validators.required]),
+      email: this.fb.control(this.teacherData.email,[Validators.required]),
+      incampus_type: this.fb.control(this.teacherData.incampus_type,[Validators.required]),
+      address: this.fb.control(this.teacherData.address,[Validators.required]),
+      gender: this.fb.control(this.teacherData.gender,[Validators.required]),
+      phone_no: this.fb.control(this.teacherData.phone_no,[Validators.required]),
    });
   }
 
@@ -66,11 +65,15 @@ export class TeacherComponent implements OnInit {
       address:this.teacherData.address,
       gender:this.teacherData.gender,
       phone_no:this.teacherData.phone_no,
-      password:this.teacherData.password,
     })
   }
 
   selectTeacher(id:number){
+    // default value so no need to find the teacher with id -1
+    if(id==-1){
+      this.processing=false;
+      return
+    }
     this.selectedTeacher=id;
     this.processing=true;
     this.restAPIService.getTeacherbyId(id).subscribe(
@@ -81,6 +84,11 @@ export class TeacherComponent implements OnInit {
         if(resp){
           this.teacherData = resp;
         }
+        if (!(this.teacherData)){
+          this.initTeacherData();
+        }
+        // update form to be ready for edit 
+        this.patchForm();    
         this.processing=false;
       },
       error: (err) => {
@@ -92,13 +100,7 @@ export class TeacherComponent implements OnInit {
       complete: () => console.info('complete') 
     }    
 
-  );
-    
-    if (!(this.teacherData)){
-      this.initTeacherData();
-    }
-    // update form to be ready for edit 
-    this.patchForm();
+  );    
   }
 
   initTeacherData(){
@@ -127,8 +129,10 @@ export class TeacherComponent implements OnInit {
         if(resp){
           this.teacherDataList = resp;
           this.totalRecords = this.teacherDataList.length;
+          this.selectTeacher(this.selectedTeacher);
+        }else{
+          this.processing=false;
         }
-        this.processing=false;
       },
       error: (err) => {
         console.error("err status",err.status);
@@ -155,7 +159,9 @@ export class TeacherComponent implements OnInit {
           this.teacherForm.reset();
           this.loadAllTeachers();
         }
-        this.processing=false;
+        else{
+          this.processing=false;
+        }
       },
       error: (err) => {
         console.error("err status",err.status);
@@ -181,7 +187,9 @@ export class TeacherComponent implements OnInit {
           this.teacherForm.reset();
           this.loadAllTeachers();
         }
-        this.processing=false;
+        else{
+          this.processing=false;
+        }
       },
       error: (err) => {
         console.error("err status",err.status);
