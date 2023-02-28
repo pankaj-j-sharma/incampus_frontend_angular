@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GradeData } from 'src/app/interfaces/grade-data';
-import { TimeTableData } from 'src/app/interfaces/timetable-data';
+import { TimeTableData, TimeTableInfoData } from 'src/app/interfaces/timetable-data';
 import { RestApiService } from 'src/services/rest-api/rest-api.service';
 
 @Component({
@@ -29,11 +30,59 @@ export class TimetableComponent implements OnInit {
   ];
   all_schedule_times = [];
 
-  constructor(private restAPIService : RestApiService, private router: Router) { }
+  gradeTimetableInfoData:TimeTableInfoData = {
+    id:-1,
+    grade:-1,
+    subject:-1,
+    teacher:-1,
+    classroom:-1,
+    schedule_day:"-1",
+    start_time : "-1",
+    end_time:"-1",
+    created:"",
+    classroom_name:"",
+    subject_name:"",
+    teacher_name:""
+  }
+
+  selectedSubjectRoute:number=-1;
+
+  totalRecords:any;
+  page:Number=1;
+  timetableForm:FormGroup;
+
+
+  constructor(private restAPIService : RestApiService, private router: Router, public fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.createForm();
     this.loadAllGradesforDdn();
   }
+
+  createForm(){
+    this.timetableForm = this.fb.group({
+      schedule_day: this.fb.control(this.gradeTimetableInfoData.schedule_day,[Validators.required]),
+      start_time: this.fb.control(this.gradeTimetableInfoData.start_time,[Validators.required]),
+      end_time: this.fb.control(this.gradeTimetableInfoData.end_time,[Validators.required]),
+      classroom: this.fb.control(this.gradeTimetableInfoData.classroom,[Validators.required]),
+      subject: this.fb.control(this.gradeTimetableInfoData.subject,[Validators.required]),
+      grade: this.fb.control(this.gradeTimetableInfoData.grade,[Validators.required]),
+      teacher: this.fb.control(this.gradeTimetableInfoData.teacher,[Validators.required]),
+   });
+  }
+
+  patchForm(){
+    this.timetableForm.patchValue({
+      schedule_day: this.gradeTimetableInfoData.schedule_day,
+      start_time: this.gradeTimetableInfoData.start_time,
+      end_time: this.gradeTimetableInfoData.end_time,
+      classroom: this.gradeTimetableInfoData.classroom,
+      subject: this.gradeTimetableInfoData.subject,
+      grade: this.gradeTimetableInfoData.grade,
+      teacher: this.gradeTimetableInfoData.teacher,
+    })
+  }
+
 
   initGradeDdn(){
     this.selectedGrade={
@@ -81,6 +130,8 @@ export class TimetableComponent implements OnInit {
         if(resp){
           this.gradeTimetableDataList = resp;
           this.__formatTimetableDataList(this.gradeTimetableDataList);
+          this.gradeTimetableInfoData.grade = gradeid;
+          this.patchForm();    
         }
         this.processing=false;
       },
@@ -95,6 +146,35 @@ export class TimetableComponent implements OnInit {
 
   );
     
+  }
+
+  addDailyTimetable(timetable:any){
+    console.log("timetable component data recieved ",timetable);
+    this.processing=true;
+    this.restAPIService.addNewTimetable(timetable).subscribe(
+    
+    {
+      next: (resp) => {
+        console.log("addDailyTimetable resp",resp);
+        if(resp){
+          this.loadGradeTimetable(this.selectedGrade.id);
+          this.timetableForm.reset();
+        }
+        else{
+          this.processing=false;
+        }
+      },
+      error: (err) => {
+        console.error("err status",err.status);
+        if(err.status==401){
+          this.router.navigate(['/login']);
+        }
+      },
+      complete: () => console.info('complete') 
+    }    
+
+  );
+
   }
 
   __formatTimetableDataList(timetabledata:TimeTableData[]){

@@ -1,6 +1,13 @@
 import { Component, Input,Output, OnInit, SimpleChanges, TemplateRef, ViewChild, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { GradeData } from 'src/app/interfaces/grade-data';
+import { TeacherData } from 'src/app/interfaces/teacher-data';
+import { SubjectData } from 'src/app/interfaces/subject-data';
+
+import { RestApiService } from 'src/services/rest-api/rest-api.service';
+import { ClassroomData } from 'src/app/interfaces/classroom-data';
 
 
 @Component({
@@ -12,6 +19,14 @@ export class IncampusModalComponent implements OnInit {
 
 	closeResult: string;
   display = "none";
+  allGradesDataList:GradeData[]=[];
+  allSubjectsDataList:SubjectData[]=[];
+  allTeachersDataList:TeacherData[]=[];
+  allClassroomsDataList:ClassroomData[]=[];
+  allscheduleDaysList=[
+    "Monday","Tuesday","Wednesday","Thursday","Friday"
+  ];  
+  scheduleTimeDataList:any[]=[];
 
   @Input() modalId :string=""; 
   @Input('formGroup') modalForm :any; 
@@ -22,7 +37,7 @@ export class IncampusModalComponent implements OnInit {
   @ViewChild('longContent', { read: TemplateRef ,static: false}) private longContent:TemplateRef<any>;
 
 
-	constructor(private modalService: NgbModal) {}
+	constructor(private modalService: NgbModal, private restAPIService : RestApiService, private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges) {   
     for (let propName in changes) {
@@ -34,7 +49,7 @@ export class IncampusModalComponent implements OnInit {
  }
 
  submitModalForm(){
-  console.log("submitModalForm");
+  console.log("submitModalForm",this.modalForm.value);
   this.onFormSubmit.emit(this.modalForm.value);
  }
 
@@ -62,6 +77,122 @@ export class IncampusModalComponent implements OnInit {
     }
   }
 
+  loadAllGradesforDdn(){
+    this.restAPIService.getAllGradesDdn().subscribe(
+    
+    {
+      next: (resp) => {
+        console.log("loadAllGradesforDdn resp",resp);
+        if(resp){
+          this.allGradesDataList = resp;
+        }
+      },
+      error: (err) => {
+        console.error("err status",err.status);
+        if(err.status==401){
+          this.router.navigate(['/login']);
+        }
+      },
+      complete: () => console.info('complete') 
+    }    
+
+  );
+
+  }
+
+  loadAllSubjectsforDdn(){
+    this.restAPIService.getAllSubjectsDdn().subscribe(
+    
+    {
+      next: (resp) => {
+        console.log("loadAllSubjectsforDdn resp",resp);
+        if(resp){
+          this.allSubjectsDataList = resp;
+        }
+      },
+      error: (err) => {
+        console.error("err status",err.status);
+        if(err.status==401){
+          this.router.navigate(['/login']);
+        }
+      },
+      complete: () => console.info('complete') 
+    }    
+
+  );
+
+  }
+
+
+  loadAllScheduleTimesforDdn(){
+    this.restAPIService.getAllScheduleTimesDdn().subscribe(
+    
+    {
+      next: (resp) => {
+        console.log("loadAllScheduleTimesforDdn resp",resp);
+        if(resp){
+          this.scheduleTimeDataList = resp;
+        }
+      },
+      error: (err) => {
+        console.error("err status",err.status);
+        if(err.status==401){
+          this.router.navigate(['/login']);
+        }
+      },
+      complete: () => console.info('complete') 
+    }    
+
+  );
+
+  }
+
+
+  loadAllClassroomsforDdn(){
+    this.restAPIService.getAllClassroomsDdn().subscribe(
+    
+    {
+      next: (resp) => {
+        console.log("loadAllClassroomsforDdn resp",resp);
+        if(resp){
+          this.allClassroomsDataList = resp;
+        }
+      },
+      error: (err) => {
+        console.error("err status",err.status);
+        if(err.status==401){
+          this.router.navigate(['/login']);
+        }
+      },
+      complete: () => console.info('complete') 
+    }    
+
+  );
+
+  }    
+
+  loadAllTeachersforDdn(){
+    this.restAPIService.getAllTeachersDdn().subscribe(
+    
+    {
+      next: (resp) => {
+        console.log("loadAllTeachersforDdn resp",resp);
+        if(resp){
+          this.allTeachersDataList = resp;
+        }
+      },
+      error: (err) => {
+        console.error("err status",err.status);
+        if(err.status==401){
+          this.router.navigate(['/login']);
+        }
+      },
+      complete: () => console.info('complete') 
+    }    
+
+  );
+
+  }  
   // openModal() {
   //   this.display = "block";
   // }
@@ -72,7 +203,17 @@ export class IncampusModalComponent implements OnInit {
   ngOnInit(): void {
     // this.openScrollableContent(this.longContent);
     console.log("modal id",this.modalId);
+    this.loadAllGradesforDdn();
+    this.loadAllSubjectsforDdn();
+    this.loadAllTeachersforDdn();
+    this.loadAllClassroomsforDdn();
+    this.loadAllScheduleTimesforDdn();
   }
 
+  onSelectionChanged(name:string,e: any) {
+    this.modalForm.get(name).setValue(e.target.value, {
+        onlySelf: true,
+      });
+  }
 
 }

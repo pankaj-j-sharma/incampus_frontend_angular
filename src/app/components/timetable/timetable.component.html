@@ -36,7 +36,7 @@
                     
                   </div>
                   <div class="col-3 text-right">
-                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="mymodal.launchModal()">Add Timetable</button>
+                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="addmodal.launchModal()">Add Timetable</button>
                   </div>
                 </div>                          
               </div>
@@ -74,5 +74,5 @@
           </div>
 </div>
 
-<app-incampus-modal #mymodal modalId='New Timetable'>
-</app-incampus-modal>    
+<app-incampus-modal #addmodal modalId='New Timetable' [formGroup]="timetableForm" (onFormSubmit)="addDailyTimetable($event)">
+</app-incampus-modal>

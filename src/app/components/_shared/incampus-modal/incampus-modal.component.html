@@ -207,7 +207,192 @@
 				</div>
 			</form>
 		</div>
+
+
 		
+		<!-- Subject Route Add/Update Modal Form -->
+		<div *ngIf="(modalId == 'New Subject Route' || modalId=='Update Subject Route')">
+			<form #customModalForm="ngForm" [formGroup]="modalForm" role="form" (ngSubmit)="submitModalForm()">
+				<div class="modal-body">
+					<div>
+
+						<div class="pl-lg-2 mb-lg-4">
+							<div class="row">
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-grade">Grade</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="grade" class="form-control" id="grade" (change)="onSelectionChanged('grade',$event)" formControlName="grade" >
+											 <option value="-1">Select Grade</option>
+											 <option *ngFor="let grade of allGradesDataList" [value]="grade.id" >{{grade.name}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-subject">Subject</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="subject" class="form-control" id="subject" (change)="onSelectionChanged('subject',$event)"  formControlName="subject">
+											 <option value="-1">Select Subject</option>
+											 <option *ngFor="let subject of allSubjectsDataList" [value]="subject.id" >{{subject.name}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+
+							</div>	
+						</div>
+
+						<div class="pl-lg-2">
+							<div class="row">
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-teacher">Teacher</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="teacher" class="form-control" id="teacher" (change)="onSelectionChanged('teacher',$event)"  formControlName="teacher">
+											 <option value="-1">Select Teacher</option>
+											 <option *ngFor="let teacher of allTeachersDataList" [value]="teacher.id" >{{teacher.name}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+								<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label" for="input-subject-fee">Subject Fee</label>
+									<input type="text" id="input-subject-fee" class="form-control form-control-alternative" placeholder="0" formControlName="subject_fee">
+								</div>
+								</div>
+							</div>	
+						</div>
+						
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+					<button type="submit" [disabled]="customModalForm.form.invalid" (click)="modal.close('Close click')" class="btn btn-sm bg-gradient-success text-white">Save</button>
+				</div>
+			</form>
+		</div>
+
+		
+		
+		<!-- Daily Timetable Add/Update Modal Form -->
+		<div *ngIf="(modalId == 'New Timetable' || modalId=='Update Timetable')">
+			<form #customModalForm="ngForm" [formGroup]="modalForm" role="form" (ngSubmit)="submitModalForm()">
+				<div class="modal-body">
+					<div>
+
+						<div class="pl-lg-2 mb-lg-4">
+							<div class="row">
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-grade">Grade</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="grade" class="form-control" id="grade" (change)="onSelectionChanged('grade',$event)" formControlName="grade" >
+											 <option value="-1">Select Grade</option>
+											 <option *ngFor="let grade of allGradesDataList" [value]="grade.id" >{{grade.name}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-subject">Subject</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="subject" class="form-control" id="subject" (change)="onSelectionChanged('subject',$event)"  formControlName="subject">
+											 <option value="-1">Select Subject</option>
+											 <option *ngFor="let subject of allSubjectsDataList" [value]="subject.id" >{{subject.name}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+
+							</div>	
+						</div>
+
+						<div class="pl-lg-2 mb-lg-4">
+							<div class="row">
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-teacher">Teacher</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="teacher" class="form-control" id="teacher" (change)="onSelectionChanged('teacher',$event)"  formControlName="teacher">
+											 <option value="-1">Select Teacher</option>
+											 <option *ngFor="let teacher of allTeachersDataList" [value]="teacher.id" >{{teacher.name}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-classroom">Classroom</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="classroom" class="form-control" id="classroom" (change)="onSelectionChanged('classroom',$event)"  formControlName="classroom">
+											 <option value="-1">Select Classroom</option>
+											 <option *ngFor="let classroom of allClassroomsDataList" [value]="classroom.id" >{{classroom.name}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+							</div>	
+						</div>
+
+						<div class="pl-lg-2 mb-lg-4">
+							<div class="row">
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-schedule-day">Schedule Day</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="schedule-day" class="form-control" id="schedule-day" (change)="onSelectionChanged('schedule_day',$event)"  formControlName="schedule_day">
+											 <option value="-1">Select Day</option>
+											 <option *ngFor="let scheduleDay of allscheduleDaysList" [value]="scheduleDay" >{{scheduleDay}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-starttime">Start Time</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="start_time" class="form-control" id="start_time" (change)="onSelectionChanged('start_time',$event)"  formControlName="start_time">
+											 <option value="-1">Select Start Time</option>
+											 <option *ngFor="let scheduletime of scheduleTimeDataList" [value]="scheduletime.start_time" >{{scheduletime.start_time}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+							</div>	
+						</div>						
+
+						<div class="pl-lg-2">
+							<div class="row">
+								<div class="col-6 text-left">
+									<label class="form-control-label" for="input-endtime">End Time</label>
+									<div class="" id="divGender">
+									   <div class="col-xs-4" id="divGender1">
+										  <select name="endtime" class="form-control" id="start_time" (change)="onSelectionChanged('end_time',$event)"  formControlName="end_time">
+											 <option value="-1">Select End Time</option>
+											 <option *ngFor="let scheduletime of scheduleTimeDataList" [value]="scheduletime.end_time" >{{scheduletime.end_time}}</option>
+										  </select>
+									   </div>
+									</div>			  								  
+								</div>	
+							</div>	
+						</div>						
+
+						
+					</div>				
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+					<button type="submit" [disabled]="customModalForm.form.invalid" (click)="modal.close('Close click')" class="btn btn-sm bg-gradient-success text-white">Save</button>
+				</div>
+			</form>
+		</div>
+				
 		
 	</div>
 </ng-template>

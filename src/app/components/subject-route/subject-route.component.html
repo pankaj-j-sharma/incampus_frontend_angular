@@ -2,95 +2,149 @@
 <div *ngIf="processing" class="loading">
   <div class="gear"></div>
 </div>
-
 <!--loader end-->
 <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-      <div class="row">      
-      </div>
-    </div>
+     <div class="header-body">
+        <!-- Card stats -->
+        <div class="row">      
+        </div>
+     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">   
-      <div class="row">
-          <div class="col">
-            <div class="card shadow">
-              <div class="card-header border-0">
-                <div class="row align-items-center">
-                  <div class="col-8">
-                    <h3 class="mb-0">All Subject Routes</h3>
-                  </div>
-                  <div class="col-4 text-right">
-                    <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="mymodal.launchModal()">Add Subject Route</button>
-                  </div>
-                </div>                          
+<div class="container-fluid mt--7">
+<div class="row">
+<div class="col padding-bottom">
+  <div class="card shadow">
+     <div class="card-header border-0">
+        <div class="row align-items-center">
+           <div class="col-8">
+              <h3 class="mb-0">All Subject Routes</h3>
+           </div>
+           <div class="col-4 text-right">
+              <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="addmodal.launchModal()">Add Subject Route</button>
+           </div>
+        </div>
+     </div>
+     <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+           <thead class="thead-light">
+              <tr>
+                 <th scope="col" >#</th>
+                 <th scope="col" >Grade</th>
+                 <th scope="col" >Subject</th>
+                 <th scope="col" >Teacher</th>
+                 <th scope="col" >Created On</th>
+                 <th scope="col" >Subject Fee</th>
+                 <th scope="col"></th>
+                 <th scope="col"></th>
+                 <th scope="col"></th>
+              </tr>
+           </thead>
+           <tbody>
+              <tr *ngFor="let subjectroutedata of subjectRouteDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }"  (click)="selectSubjectRoute(subjectroutedata.id)" [class.active]="subjectroutedata.id == selectedSubjectRoute" style="cursor: pointer;">
+                 <td>
+                    {{subjectroutedata.id}}
+                 </td>
+                 <th scope="row">
+                    <div class="media align-items-center">
+                       <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
+                       <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
+                       </a>
+                       <div class="media-body">
+                          <span class="mb-0 text-sm">{{subjectroutedata.grade_name}}</span>
+                       </div>
+                    </div>
+                 </th>
+                 <td>
+                    {{subjectroutedata.subject_name}}
+                 </td>
+                 <td>
+                    {{subjectroutedata.teacher_name}}
+                 </td>
+                 <td>
+                    {{subjectroutedata.created}}
+                 </td>
+                 <td>
+                    {{subjectroutedata.subject_fee | currency }}
+                 </td>
+                 <td class="text-right">
+                  <button [ngClass]="subjectroutedata.id == selectedSubjectRoute ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'" (click)="updatemodal.launchModal()"><i class="ni ni-ruler-pencil"></i></button>
+                </td>
+                <td class="text-right">
+                  <button [ngClass]="subjectroutedata.id == selectedSubjectRoute ? 'btn btn-sm bg-gradient-white text-success' : 'btn btn-sm bg-gradient-success text-white'"><i class="ni ni-scissors"></i></button>
+                </td>
+              </tr>
+           </tbody>
+        </table>
+     </div>
+     <div class="card-footer py-4">
+        <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
+        </pagination-controls>
+     </div>
+  </div>
+</div>
+  <div class="col" *ngIf="selectedSubjectRoute!=-1">
+     <div class="card shadow">
+        <div class="card-header border-0  pb-0">
+           <div class="row align-items-center">
+              <div class="col-8 pb-0">
+                 <h3 class="p-2 ml-4 mb-0 pb-0">Subject Mapping - {{subjectRouteInfoData.subject_name}}</h3>
               </div>
-              <div class="table-responsive">
-                <table class="table align-items-center table-flush">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col" >#</th>
-                      <th scope="col" >Grade</th>
-                      <th scope="col" >Subject</th>
-                      <th scope="col" >Teacher</th>
-                      <th scope="col" >Created On</th>
-                      <th scope="col" >Subject Fee</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let subjectroutedata of subjectRouteDataList | paginate :{id:'listing-pagination',itemsPerPage:5, currentPage:page, totalItems:totalRecords }">
-                      <td>
-                        {{subjectroutedata.id}}
-                      </td>
-
-                      <th scope="row">
-                        <div class="media align-items-center">
-                          <a href="javascript:void(0)" class="hide avatar rounded-circle mr-3">
-                            <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                          </a>
-                          <div class="media-body">
-                            <span class="mb-0 text-sm">{{subjectroutedata.grade_name}}</span>
-                          </div>
-                        </div>
-                      </th>
-                      <td>
-                          {{subjectroutedata.subject_name}}
-                      </td>
-                      <td>
-                          {{subjectroutedata.teacher_name}}
-                      </td>
-                      <td>
-                          {{subjectroutedata.created}}
-                      </td>
-                      <td>
-                        {{subjectroutedata.subject_fee | currency }}
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-ruler-pencil"></i></button>
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-glasses-2"></i></button>
-                      </td>
-                      <td class="text-right">
-                        <button class="btn btn-sm bg-gradient-success text-white"><i class="ni ni-scissors"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="col-4 text-right">
+                 <button type="button" class="btn btn-sm bg-gradient-success text-white" (click)="updatemodal.launchModal()">Edit</button>
               </div>
-              <div class="card-footer py-4">
-
-                  <pagination-controls id="listing-pagination" maxSize="5" (pageChange)="page=$event">
-                  </pagination-controls>
+           </div>
+        </div>
+        <div class="card-body">
+           <div class="d-flex justify-content-between info-card info-card-first">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm text-400">Subject Name</p>
               </div>
-            </div>
-          </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectRouteInfoData.subject_name}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm text-400">Grade</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectRouteInfoData.grade_name}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm text-400">Teacher Name</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectRouteInfoData.teacher_name}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm text-400">Subject Fee</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectRouteInfoData.subject_fee | currency}}</p>
+              </div>
+           </div>
+           <div class="d-flex justify-content-between info-card">
+              <div class="p-2 ml-4 mr-auto">
+                 <p class="card-text text-sm text-400">Created</p>
+              </div>
+              <div class="p-2 mr-4">
+                 <p class="card-text text-sm">{{subjectRouteInfoData.created}}</p>
+              </div>
+           </div>
+        </div>
+        <div class="card-footer py-4" style="display:none">
+        </div>
+     </div>
+  </div>
 </div>
 
-<app-incampus-modal #mymodal modalId='New Subject Route'>
-</app-incampus-modal>    
+<app-incampus-modal #addmodal modalId='New Subject Route' [formGroup]="subjectRouteForm" (onFormSubmit)="addSubjectRoute($event)">
+</app-incampus-modal>
+<app-incampus-modal #updatemodal modalId='Update Subject Route' [formGroup]="subjectRouteForm" (onFormSubmit)="updateSubjectRoute($event)">
+</app-incampus-modal>
