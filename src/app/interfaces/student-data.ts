@@ -7,3 +7,17 @@ export interface StudentData {
     phone_no : string
     profilepic : string
   }
+
+  export interface StudentDetailsData {
+    id : number
+    username: string
+    first_name: string
+    last_name: string
+    email: string    
+    incampus_type: string
+    address: string
+    gender : string
+    phone_no: string
+    password: string
+    added_by: number
+  }

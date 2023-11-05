@@ -36,6 +36,9 @@ export class RestApiService {
   private updateSubjectRouteDataUrl = this.BASE_URL+"grade/subjectroutinginfo?id=";
   private loadSubjectRoutebyIdDataUrl = this.BASE_URL+"grade/subjectroutinginfo?id=";
   private loadAllStudentsDataUrl = this.BASE_URL+"student/studentlist";
+  private loadStudentbyIdDataUrl = this.BASE_URL+"student/student?id=";
+  private addNewStudentDataUrl = this.BASE_URL+"student/create_student";
+  private updateStudentDataUrl = this.BASE_URL+"teacher/teacher?id=";
   private loadAllPaymentsDataUrl = this.BASE_URL+"payment/payment_list";
   private loadStudentsPaymentsDataUrl = this.BASE_URL+"student/student_payment_list";
   private loadAttendanceDataUrl = this.BASE_URL+"attendance/attendancelist";
@@ -179,6 +182,18 @@ export class RestApiService {
   getAllStudents(){
     return this.http.get<any>(this.loadAllStudentsDataUrl );        
   } 
+
+  getStudentbyId(id:number){
+    return this.http.get<any>(this.loadStudentbyIdDataUrl+id.toString() );  
+  }
+
+  addNewStudent(postData:any){
+    return this.http.post<any>(this.addNewStudentDataUrl,postData );        
+  } 
+
+  updateStudent(id:number,putData:any){
+    return this.http.put<any>(this.updateStudentDataUrl+id.toString(),putData );        
+  }
 
   getStudentsPayments(){
     return this.http.get<any>(this.loadStudentsPaymentsDataUrl );        
