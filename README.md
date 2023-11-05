@@ -13,3 +13,7 @@ https://stackoverflow.com/questions/46403698/css-values-not-applying-on-dynamica
 
 # server side pagination
 https://www.positronx.io/how-to-create-server-side-pagination-in-angular-app/
+
+# docker commands to run 
+docker build -t incampusfrontend-ui:latest .
+docker run -d -p 4200:4200 --name incampus-frontend-ui incampusfrontend-ui:latest
