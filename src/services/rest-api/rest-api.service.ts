@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class RestApiService {
 
   /* take the hostname dynamically from the window object*/
-  private BASE_URL = window.location.hostname=="localhost" ? "http://127.0.0.1:8000/" : "http://"+window.location.hostname+"/";
+  private BASE_URL = window.location.hostname=="localhost" ? "http://localhost:8080/" : "http://"+window.location.hostname+"/";
   private userLoginUrl = this.BASE_URL+"api/token/";
   private loadUserProfileDataUrl = this.BASE_URL+"userprofile/profiledetails";
   private loadAllClassroomsDataUrl = this.BASE_URL+"grade/classroomlist";
