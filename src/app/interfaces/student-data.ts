@@ -19,5 +19,6 @@ export interface StudentData {
     gender : string
     phone_no: string
     password: string
+    grade_name : string
     added_by: number
   }

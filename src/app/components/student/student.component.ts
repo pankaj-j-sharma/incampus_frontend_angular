@@ -27,7 +27,8 @@ export class StudentComponent implements OnInit {
     last_name:"",
     password:"12345",
     phone_no:"",
-    username:""
+    username:"",
+    grade_name:""
   }
 
   selectedStudent:number=-1;
@@ -116,7 +117,8 @@ export class StudentComponent implements OnInit {
       last_name:"",
       password:"",
       phone_no:"",
-      username:""
+      username:"",
+      grade_name:""
     }
   }    
 
